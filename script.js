@@ -508,6 +508,55 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Update the cubies and rotate their face colors
                     for (let z = 0; z < 3; z++) {
+                        for (let x = 0; x < 3; x++) {
+                            const originalCubie = rotatedFace[z][x];
+                            const rotatedCubieFaces = [...originalCubie.faces];
+                            
+                            // Rotate colors: front -> left -> back -> right (clockwise)
+                            if (clockwise) {
+                                [rotatedCubieFaces[0], rotatedCubieFaces[3], rotatedCubieFaces[1], rotatedCubieFaces[2]] = 
+                                [rotatedCubieFaces[2], rotatedCubieFaces[0], rotatedCubieFaces[3], rotatedCubieFaces[1]];
+                            } else {
+                                [rotatedCubieFaces[0], rotatedCubieFaces[3], rotatedCubieFaces[1], rotatedCubieFaces[2]] = 
+                                [rotatedCubieFaces[3], rotatedCubieFaces[1], rotatedCubieFaces[2], rotatedCubieFaces[0]];
+                            }
+                            
+                            // Validate face colors
+                            for (let i = 0; i < 6; i++) {
+                                rotatedCubieFaces[i] = validateFaceColor(
+                                    rotatedCubieFaces[i], 
+                                    i, 
+                                    [x, 2, z]
+                                );
+                            }
+                            
+                            newState[x][2][z].faces = rotatedCubieFaces;
+                        }
+                    }
+                }
+                break;
+        }
+        
+        cubeState = newState;
+        renderCube();
+    }
+    
+    // Add event listeners for the face rotation buttons
+    document.getElementById('rotate-front-cw').addEventListener('click', () => rotateFace('front', true));
+    document.getElementById('rotate-front-ccw').addEventListener('click', () => rotateFace('front', false));
+    document.getElementById('rotate-back-cw').addEventListener('click', () => rotateFace('back', true));
+    document.getElementById('rotate-back-ccw').addEventListener('click', () => rotateFace('back', false));
+    document.getElementById('rotate-right-cw').addEventListener('click', () => rotateFace('right', true));
+    document.getElementById('rotate-right-ccw').addEventListener('click', () => rotateFace('right', false));
+    document.getElementById('rotate-left-cw').addEventListener('click', () => rotateFace('left', true));
+    document.getElementById('rotate-left-ccw').addEventListener('click', () => rotateFace('left', false));
+    document.getElementById('rotate-top-cw').addEventListener('click', () => rotateFace('top', true));
+    document.getElementById('rotate-top-ccw').addEventListener('click', () => rotateFace('top', false));
+    document.getElementById('rotate-bottom-cw').addEventListener('click', () => rotateFace('bottom', true));
+    document.getElementById('rotate-bottom-ccw').addEventListener('click', () => rotateFace('bottom', false));
+    
+    // Mouse drag rotation for the entire cube
+    let isDragging = false;
     let previousX, previousY;
     
     cube.addEventListener('mousedown', function(e) {
