@@ -1,0 +1,168 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.scene {
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+    margin-bottom: 50px;
+}
+
+.cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(-25deg) rotateY(-25deg);
+    transition: transform 0.5s;
+}
+
+.cube__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5px;
+    padding: 5px;
+    background-color: #222;
+}
+
+.cubie {
+    background-color: var(--color, black);
+    border-radius: 2px;
+    position: relative;
+}
+
+/* Set colors for each face */
+.cube__face--front .cubie {
+    --color: #ff0000; /* Red */
+}
+
+.cube__face--back .cubie {
+    --color: #FFA500; /* Orange */
+}
+
+.cube__face--right .cubie {
+    --color: #00ff00; /* Green */
+}
+
+.cube__face--left .cubie {
+    --color: #0000ff; /* Blue */
+}
+
+.cube__face--top .cubie {
+    --color: #ffffff; /* White */
+}
+
+.cube__face--bottom .cubie {
+    --color: #ffff00; /* Yellow */
+}
+
+/* Position each face */
+.cube__face--front {
+    transform: translateZ(150px);
+}
+
+.cube__face--back {
+    transform: rotateY(180deg) translateZ(150px);
+}
+
+.cube__face--right {
+    transform: rotateY(90deg) translateZ(150px);
+}
+
+.cube__face--left {
+    transform: rotateY(-90deg) translateZ(150px);
+}
+
+.cube__face--top {
+    transform: rotateX(90deg) translateZ(150px);
+}
+
+.cube__face--bottom {
+    transform: rotateX(-90deg) translateZ(150px);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#shuffle {
+    background-color: #ff5722;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    margin-left: 15px;
+}
+
+#shuffle:hover {
+    background-color: #e64a19;
+}
+
+#shuffle:disabled,
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Add at the end of your existing CSS file */
+.slice-controls {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.slice-controls h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.slice-controls div {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.slice-controls button {
+    padding: 8px 12px;
+    background-color: #2196F3;
+}
+
+.slice-controls button:hover {
+    background-color: #0b7dda;
+}
